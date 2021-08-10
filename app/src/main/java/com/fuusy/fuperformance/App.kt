@@ -1,35 +1,53 @@
 package com.fuusy.fuperformance
 
 import android.app.Application
-import android.hardware.Camera
-import androidx.core.os.TraceCompat
 import com.alibaba.android.arouter.launcher.ARouter
 import com.fuusy.fuperformance.appstart.TimeMonitorManager
 import com.kingja.loadsir.core.LoadSir
 import com.tencent.bugly.Bugly
+import java.util.*
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
 class App : Application() {
+    //CountDownLatch等待子线程完成后操作
+    private val countDownLatch: CountDownLatch = CountDownLatch(1)
+
 
     companion object {
         private const val TAG = "App"
+        private val CPU_COUNT = Runtime.getRuntime().availableProcessors()
+        private val CORE_POOL_SIZE = Math.max(2, Math.min(CPU_COUNT - 1, 4))
     }
 
     override fun onCreate() {
         super.onCreate()
         //Debug.startMethodTracing("App")
         //TraceCompat.beginSection("onCreate")
+
         TimeMonitorManager.instance?.startMonitor()
+        //异步方法一、创建线程池
+        /*
+        val newFixedThreadPool = Executors.newFixedThreadPool(CORE_POOL_SIZE)
+        newFixedThreadPool.submit {
+            initRouter()
+        }
+        newFixedThreadPool.submit {
+            initBugly()
+            countDownLatch.countDown()
+        }
+        newFixedThreadPool.submit {
+            initLoadSir()
+        }
+
+         */
+
         initRouter()
-        TimeMonitorManager.instance?.endMonitor("initRouter")
-
-        TimeMonitorManager.instance?.startMonitor()
         initBugly()
-        TimeMonitorManager.instance?.endMonitor("initBugly")
-
-        TimeMonitorManager.instance?.startMonitor()
         initLoadSir()
-        TimeMonitorManager.instance?.endMonitor("initLoadSir")
-
+        //countDownLatch.await()
+        TimeMonitorManager.instance?.endMonitor("APP onCreate")
         //Debug.stopMethodTracing()
         //TraceCompat.endSection()
     }
