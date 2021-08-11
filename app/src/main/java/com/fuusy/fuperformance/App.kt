@@ -3,6 +3,10 @@ package com.fuusy.fuperformance
 import android.app.Application
 import com.alibaba.android.arouter.launcher.ARouter
 import com.fuusy.fuperformance.appstart.TimeMonitorManager
+import com.fuusy.fuperformance.appstart.dispatcher.TaskDispatcher
+import com.fuusy.fuperformance.appstart.task.BuglyTask
+import com.fuusy.fuperformance.appstart.task.LoadSirTask
+import com.fuusy.fuperformance.appstart.task.RouterTask
 import com.kingja.loadsir.core.LoadSir
 import com.tencent.bugly.Bugly
 import java.util.*
@@ -43,9 +47,17 @@ class App : Application() {
 
          */
 
-        initRouter()
-        initBugly()
-        initLoadSir()
+        //方式二、启动器
+        TaskDispatcher.init(this)
+
+        TaskDispatcher.newInstance()
+            .addTask(RouterTask())
+            .addTask(LoadSirTask())
+            .addTask(BuglyTask())
+
+//        initRouter()
+//        initBugly()
+//        initLoadSir()
         //countDownLatch.await()
         TimeMonitorManager.instance?.endMonitor("APP onCreate")
         //Debug.stopMethodTracing()
@@ -55,7 +67,7 @@ class App : Application() {
     private fun initLoadSir() {
 
         LoadSir.beginBuilder()
-            .commit();
+            .commit()
     }
 
     private fun initRouter() {
