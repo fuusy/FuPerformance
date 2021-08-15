@@ -1,4 +1,4 @@
-package com.fuusy.fuperformance.appstart
+package com.fuusy.fuperformance.appstart.aop
 
 import android.util.Log
 import org.aspectj.lang.ProceedingJoinPoint

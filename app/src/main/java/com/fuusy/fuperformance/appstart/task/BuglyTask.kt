@@ -8,7 +8,12 @@ import com.tencent.bugly.Bugly
  * @author fushiyao
  * @instruction：
  */
-class BuglyTask :Task() {
+class BuglyTask : Task() {
+
+    override fun dependsOn(): List<Class<out Task?>?>? {
+        return super.dependsOn()
+    }
+
     override fun run() {
         Bugly.init(mContext, "12324334", false)
     }

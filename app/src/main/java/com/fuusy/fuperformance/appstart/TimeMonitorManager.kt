@@ -6,7 +6,7 @@ import java.util.*
 /**
  * @author fuusy
  * @date：2021/8/9
- * @instruction：
+ * @instruction：监听耗时
  */
 class TimeMonitorManager private constructor() {
     private val mTimeTagMap = HashMap<String, Long?>()

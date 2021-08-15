@@ -9,6 +9,11 @@ import com.kingja.loadsir.core.LoadSir
  * @instruction：
  */
 class LoadSirTask : Task() {
+
+    override fun needWait(): Boolean {
+        return true
+    }
+
     override fun run() {
         LoadSir.beginBuilder()
             .commit()

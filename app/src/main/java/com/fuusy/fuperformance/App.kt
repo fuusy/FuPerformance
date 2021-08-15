@@ -4,9 +4,7 @@ import android.app.Application
 import com.alibaba.android.arouter.launcher.ARouter
 import com.fuusy.fuperformance.appstart.TimeMonitorManager
 import com.fuusy.fuperformance.appstart.dispatcher.TaskDispatcher
-import com.fuusy.fuperformance.appstart.task.BuglyTask
-import com.fuusy.fuperformance.appstart.task.LoadSirTask
-import com.fuusy.fuperformance.appstart.task.RouterTask
+import com.fuusy.fuperformance.appstart.task.*
 import com.kingja.loadsir.core.LoadSir
 import com.tencent.bugly.Bugly
 import java.util.*
@@ -49,11 +47,12 @@ class App : Application() {
 
         //方式二、启动器
         TaskDispatcher.init(this)
-
         TaskDispatcher.newInstance()
             .addTask(RouterTask())
             .addTask(LoadSirTask())
             .addTask(BuglyTask())
+            .addTask(LoadAppIdTask())
+            .addTask(WeChatPayTask())
 
 //        initRouter()
 //        initBugly()
