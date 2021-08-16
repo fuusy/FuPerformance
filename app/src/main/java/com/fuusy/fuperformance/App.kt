@@ -1,16 +1,16 @@
 package com.fuusy.fuperformance
 
 import android.app.Application
+import android.os.Debug
 import com.alibaba.android.arouter.launcher.ARouter
 import com.fuusy.fuperformance.appstart.TimeMonitorManager
+import com.fuusy.fuperformance.appstart.delay.DelayDispatcher
 import com.fuusy.fuperformance.appstart.dispatcher.TaskDispatcher
 import com.fuusy.fuperformance.appstart.task.*
 import com.kingja.loadsir.core.LoadSir
 import com.tencent.bugly.Bugly
 import java.util.*
 import java.util.concurrent.CountDownLatch
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
 
 class App : Application() {
     //CountDownLatch等待子线程完成后操作
@@ -25,7 +25,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        //Debug.startMethodTracing("App")
+        //Debug.startMethodTracing("onCreate")
         //TraceCompat.beginSection("onCreate")
 
         TimeMonitorManager.instance?.startMonitor()
@@ -54,6 +54,8 @@ class App : Application() {
             .addTask(LoadAppIdTask())
             .addTask(WeChatPayTask())
 
+
+
 //        initRouter()
 //        initBugly()
 //        initLoadSir()
@@ -79,5 +81,28 @@ class App : Application() {
 
     private fun initBugly() {
         Bugly.init(this, "12324334", false)
+    }
+
+    private fun Delay() {
+        object : Thread() {
+            override fun run() {
+                super.run()
+                sleep(3000) //休眠3秒
+                /**
+                 * 要执行的操作
+                 */
+            }
+        }.start()
+
+        val task: TimerTask = object : TimerTask() {
+            override fun run() {
+                /**
+                 * 要执行的操作
+                 */
+            }
+        }
+        val timer = Timer()
+        timer.schedule(task, 3000) //3秒后执行TimeTask的run方法
+
     }
 }
