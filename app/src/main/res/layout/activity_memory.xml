@@ -4,16 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <Button
-        android:id="@+id/bt_memory"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="50dp"
-        android:background="#405182"
-        android:text="内存优化"
-        android:textSize="16sp"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".memory.MemoryActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
