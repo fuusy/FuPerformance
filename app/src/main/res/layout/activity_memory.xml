@@ -16,12 +16,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/bt_start"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="start"
-        android:textColor="@color/white"
-        android:textSize="16sp"/>
+   <ImageView
+       android:id="@+id/iv_bitmap"
+       android:layout_width="100dp"
+       android:layout_height="100dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

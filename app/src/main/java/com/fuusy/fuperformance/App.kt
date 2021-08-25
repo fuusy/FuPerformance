@@ -1,14 +1,19 @@
 package com.fuusy.fuperformance
 
 import android.app.Application
-import android.os.Debug
+import android.graphics.Bitmap
+import android.widget.ImageView
 import com.alibaba.android.arouter.launcher.ARouter
 import com.fuusy.fuperformance.appstart.TimeMonitorManager
-import com.fuusy.fuperformance.appstart.delay.DelayDispatcher
 import com.fuusy.fuperformance.appstart.dispatcher.TaskDispatcher
 import com.fuusy.fuperformance.appstart.task.*
+import com.fuusy.fuperformance.memory.bitmap.BitmapARTHook
 import com.kingja.loadsir.core.LoadSir
+
+
 import com.tencent.bugly.Bugly
+import de.robv.android.xposed.DexposedBridge
+import de.robv.android.xposed.XC_MethodHook
 import java.util.*
 import java.util.concurrent.CountDownLatch
 
@@ -63,6 +68,25 @@ class App : Application() {
         TimeMonitorManager.instance?.endMonitor("APP onCreate")
         //Debug.stopMethodTracing()
         //TraceCompat.endSection()
+
+        initBitmapHook()
+    }
+
+    /**
+     * 初始化Bitmap大小监控。
+     */
+    private fun initBitmapHook() {
+
+        DexposedBridge.hookAllConstructors(ImageView::class.java, object : XC_MethodHook() {
+            @Throws(Throwable::class)
+            override fun afterHookedMethod(param: MethodHookParam) {
+                super.afterHookedMethod(param)
+                DexposedBridge.findAndHookMethod(
+                    ImageView::class.java, "setImageBitmap",
+                    Bitmap::class.java, BitmapARTHook()
+                )
+            }
+        })
     }
 
     private fun initLoadSir() {
