@@ -21,4 +21,24 @@
        android:layout_width="100dp"
        android:layout_height="100dp"/>
 
+    <ImageView
+        android:id="@+id/iv_bitmap1"
+        android:layout_width="match_parent"
+        android:layout_height="500dp" />
+
+    <Button
+        android:id="@+id/bt_dump"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#FFDAB9"
+        android:text="dump"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <Button
+        android:id="@+id/bt_analyzer"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#FFDAB9"
+        android:text="analyzer"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

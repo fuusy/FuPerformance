@@ -92,7 +92,7 @@ class BitmapARTHook : XC_MethodHook() {
                 .append("\n call stack trace: \n").append(Log.getStackTraceString(t)).append('\n')
                 .toString()
             Log.i(TAG, "warn: $warnInfo")
-            ToastUtils.showShort(warnInfo)
+            //ToastUtils.showShort(warnInfo)
         }
     }
 }

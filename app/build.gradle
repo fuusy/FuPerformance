@@ -24,7 +24,7 @@ android {
         }
 
         ndk {
-            abiFilters "armeabi-v7a"
+            //abiFilters "armeabi-v7a"
         }
     }
 
@@ -43,7 +43,8 @@ android {
     }
 
     aspectjx {
-        exclude 'androidx', 'com.google', 'versions.9'
+        exclude 'androidx', 'com.google', 'versions.9','com.squareup' exclude 'leakcanary'
+
     }
 }
 
@@ -66,12 +67,15 @@ dependencies {
 
     implementation 'org.aspectj:aspectjrt:1.8.+'
 
-//    api 'androidx.legacy:legacy-support-v4:1.0.0'
-//    //debugImplementation because LeakCanary should only run in debug builds.
-//    debugApi 'com.squareup.leakcanary:leakcanary-android:2.6'
+
+    //debugImplementation because LeakCanary should only run in debug builds.
+    implementation 'com.squareup.leakcanary:leakcanary-android:2.6'
 
     implementation 'me.weishu:epic:0.11.0'
-    api 'com.blankj:utilcodex:1.30.6'
+    implementation 'com.blankj:utilcodex:1.30.6'
 
+    implementation 'com.squareup.haha:haha:2.0.4'
 
+    //设备分级
+    implementation 'com.facebook.device.yearclass:yearclass:2.1.0'
 }
